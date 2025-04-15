@@ -1,0 +1,55 @@
+import bisect
+
+class LongestIncreasingSubsequence:
+    def lengthOfLIS(self, nums: list[int]) -> int:
+        """
+        Find the length of the longest increasing subsequence.
+        
+        Args:
+            nums: List of integers
+            
+        Returns:
+            int: Length of the longest increasing subsequence
+        """
+        if not nums:
+            return 0
+            
+        tails = []
+        
+        for num in nums:
+            # Find the first element in tails that is >= num
+            idx = bisect.bisect_left(tails, num)
+            
+            if idx == len(tails):
+                # If num is larger than all elements in tails, append it
+                tails.append(num)
+            else:
+                # Otherwise, replace the first element >= num
+                tails[idx] = num
+                
+        return len(tails)
+
+def test_longest_increasing_subsequence():
+    # Test cases
+    test_cases = [
+        ([10, 9, 2, 5, 3, 7, 101, 18], 4),
+        ([0, 1, 0, 3, 2, 3], 4),
+        ([7, 7, 7, 7, 7, 7, 7], 1),
+        ([], 0),
+        ([1], 1),
+        ([1, 3, 6, 7, 9, 4, 10, 5, 6], 6),
+        ([3, 5, 6, 2, 5, 4, 19, 5, 6, 7, 12], 6),
+    ]
+    
+    solver = LongestIncreasingSubsequence()
+    
+    for nums, expected in test_cases:
+        result = solver.lengthOfLIS(nums)
+        print(f"Input: nums = {nums}")
+        print(f"Output: {result}")
+        print(f"Expected: {expected}")
+        print(f"Test {'passed' if result == expected else 'failed'}")
+        print("-" * 50)
+
+if __name__ == "__main__":
+    test_longest_increasing_subsequence() 
