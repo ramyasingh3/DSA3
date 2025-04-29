@@ -77,9 +77,9 @@ def length_of_lis(nums: list[int]) -> int:
 def main():
     # Test cases
     test_cases = [
-        [10, 9, 2, 5, 3, 7, 101, 18],  # Expected: 4 (subsequence [2,5,7,101])
-        [0, 1, 0, 3, 2, 3],            # Expected: 4 (subsequence [0,1,2,3])
-        [7, 7, 7, 7, 7, 7, 7],         # Expected: 1 (subsequence [7])
+        [10, 9, 2, 5, 3, 7, 101, 18],  # Expected: 4 (subsequence: [2,5,7,101])
+        [0, 1, 0, 3, 2, 3],            # Expected: 4 (subsequence: [0,1,2,3])
+        [7, 7, 7, 7, 7, 7, 7],         # Expected: 1 (subsequence: [7])
         [],                            # Expected: 0
         [1],                           # Expected: 1
     ]
