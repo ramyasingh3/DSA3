@@ -1,11 +1,9 @@
 # Longest Common Subsequence
 
-## Problem Description
+## Problem Statement
 Given two strings `text1` and `text2`, return the length of their longest common subsequence. If there is no common subsequence, return 0.
 
 A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
-
-## Examples
 
 ### Example 1:
 ```
@@ -28,27 +26,27 @@ Output: 0
 Explanation: There is no such common subsequence, so the result is 0.
 ```
 
-## Approach
-The solution uses dynamic programming to solve this problem efficiently. Here's how it works:
+## Constraints:
+- 1 <= text1.length, text2.length <= 1000
+- text1 and text2 consist only of lowercase English characters.
 
-1. Create a 2D DP table where `dp[i][j]` represents the length of the longest common subsequence of `text1[0...i-1]` and `text2[0...j-1]`
-2. Initialize the base cases:
-   - If either string is empty, the LCS length is 0
-3. For each character in both strings:
-   - If the characters match, `dp[i][j] = dp[i-1][j-1] + 1`
-   - If the characters don't match, `dp[i][j] = max(dp[i-1][j], dp[i][j-1])`
-4. The value at `dp[m][n]` (where m and n are lengths of text1 and text2) gives the length of the LCS
+## Solution Approach
+The solution uses dynamic programming to solve this problem efficiently:
 
-## Time Complexity
-- O(m * n), where m and n are the lengths of the two input strings
-- We need to fill the DP table which has m * n cells
+1. Create a 2D DP table where dp[i][j] represents the length of the longest common subsequence of text1[0...i-1] and text2[0...j-1].
 
-## Space Complexity
-- O(m * n)
-- We maintain a 2D DP table of size (m+1) x (n+1)
+2. For each position (i,j):
+   - If text1[i-1] == text2[j-1], then dp[i][j] = dp[i-1][j-1] + 1
+   - Otherwise, dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
-## Solution Code
-The solution is implemented in `longest_common_subsequence.py`.
+3. Return dp[m][n] as the result
+
+## Time and Space Complexity
+- Time Complexity: O(m*n), where m and n are the lengths of the input strings
+- Space Complexity: O(m*n) for the DP table
+
+## Implementation
+The solution is implemented in Python using dynamic programming. The code includes test cases to verify the implementation.
 
 ## Edge Cases Handled
 - Empty strings
