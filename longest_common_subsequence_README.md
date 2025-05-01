@@ -1,64 +1,67 @@
-# Longest Common Subsequence
+# Longest Common Subsequence (LCS)
 
-## Problem Statement
-Given two strings `text1` and `text2`, return the length of their longest common subsequence. If there is no common subsequence, return 0.
+## Problem Description
+Given two strings `text1` and `text2`, return the length of their longest common subsequence. A subsequence is a sequence that appears in the same relative order, but not necessarily contiguous.
 
-A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
-
-### Example 1:
+## Examples
 ```
 Input: text1 = "abcde", text2 = "ace"
 Output: 3
-Explanation: The longest common subsequence is "ace" and its length is 3.
-```
+Explanation: The longest common subsequence is "ace" with length 3.
 
-### Example 2:
-```
 Input: text1 = "abc", text2 = "abc"
 Output: 3
-Explanation: The longest common subsequence is "abc" and its length is 3.
-```
+Explanation: The longest common subsequence is "abc" with length 3.
 
-### Example 3:
-```
 Input: text1 = "abc", text2 = "def"
 Output: 0
-Explanation: There is no such common subsequence, so the result is 0.
+Explanation: There is no common subsequence.
 ```
 
-## Constraints:
-- 1 <= text1.length, text2.length <= 1000
-- text1 and text2 consist only of lowercase English characters.
-
 ## Solution Approach
-The solution uses dynamic programming to solve this problem efficiently:
+The solution uses dynamic programming with a 2D table. Here's how it works:
 
-1. Create a 2D DP table where dp[i][j] represents the length of the longest common subsequence of text1[0...i-1] and text2[0...j-1].
-
-2. For each position (i,j):
-   - If text1[i-1] == text2[j-1], then dp[i][j] = dp[i-1][j-1] + 1
-   - Otherwise, dp[i][j] = max(dp[i-1][j], dp[i][j-1])
-
-3. Return dp[m][n] as the result
+1. Create a DP table of size (m+1) × (n+1), where m and n are the lengths of text1 and text2
+2. Initialize all cells with 0
+3. For each character pair:
+   - If characters match: dp[i][j] = dp[i-1][j-1] + 1
+   - If characters don't match: dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+4. The bottom-right cell contains the length of LCS
 
 ## Time and Space Complexity
-- Time Complexity: O(m*n), where m and n are the lengths of the input strings
-- Space Complexity: O(m*n) for the DP table
+- Time Complexity: O(m × n), where m and n are the lengths of the input strings
+  - We fill the entire DP table once
+- Space Complexity: O(m × n)
+  - We need to store the entire DP table
 
-## Implementation
-The solution is implemented in Python using dynamic programming. The code includes test cases to verify the implementation.
+## Implementation Details
+The solution is implemented in `longest_common_subsequence.py` with:
+- Two main functions:
+  1. `longest_common_subsequence`: Returns the length of LCS
+  2. `get_lcs_string`: Returns the actual LCS string
+- Type hints for better code clarity
+- Comprehensive test cases covering:
+  - Basic cases
+  - Edge cases (empty strings, single characters)
+  - Special cases (same strings, no common subsequence)
+- Clear documentation and comments
 
-## Edge Cases Handled
-- Empty strings
-- No common subsequence
-- All characters same
-- Completely different strings
-- Partial matches
-- One string being subsequence of another
+## Alternative Approaches
+1. Recursive Solution (O(2^n) time):
+   - Simple but inefficient
+   - Good for understanding the problem
+   - Can be optimized with memoization
 
-## Applications
+2. Space-Optimized DP (O(n) space):
+   - Uses only two rows of the DP table
+   - Same time complexity but better space efficiency
+
+## Common Applications
 - DNA sequence alignment
-- File difference comparison
+- File difference detection
+- Plagiarism detection
+- Spell checking
+- Natural language processing
 - Version control systems
-- Text similarity measurement
-- Spell checking algorithms
+- Bioinformatics
+- Machine translation
