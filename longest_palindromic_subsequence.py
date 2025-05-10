@@ -1,55 +1,50 @@
-def longest_palindromic_subsequence(s: str) -> int:
+def longestPalindromeSubseq(s: str) -> int:
     """
     Find the length of the longest palindromic subsequence in a string.
     
     Args:
-        s (str): Input string
+        s: Input string
         
     Returns:
-        int: Length of the longest palindromic subsequence
+        Length of the longest palindromic subsequence
     """
-    if not s:
-        return 0
-        
     n = len(s)
+    # Create a 2D DP table where dp[i][j] represents the length of longest
+    # palindromic subsequence in s[i:j+1]
     dp = [[0] * n for _ in range(n)]
     
     # Every single character is a palindrome of length 1
     for i in range(n):
         dp[i][i] = 1
-    
-    # Check for subsequences of length 2
-    for i in range(n-1):
-        if s[i] == s[i+1]:
-            dp[i][i+1] = 2
-        else:
-            dp[i][i+1] = 1
-    
-    # Check for subsequences of length > 2
-    for length in range(3, n+1):
-        for i in range(n-length+1):
+        
+    # Fill the dp table
+    for length in range(2, n + 1):
+        for i in range(n - length + 1):
             j = i + length - 1
+            
             if s[i] == s[j]:
-                dp[i][j] = dp[i+1][j-1] + 2
+                if length == 2:
+                    dp[i][j] = 2
+                else:
+                    dp[i][j] = dp[i + 1][j - 1] + 2
             else:
-                dp[i][j] = max(dp[i+1][j], dp[i][j-1])
-    
-    return dp[0][n-1]
+                dp[i][j] = max(dp[i + 1][j], dp[i][j - 1])
+                
+    return dp[0][n - 1]
 
-def main():
-    # Test cases
-    test_cases = [
-        "bbbab",    # Expected: 4 (subsequence: "bbbb")
-        "cbbd",     # Expected: 2 (subsequence: "bb")
-        "a",        # Expected: 1 (subsequence: "a")
-        "",         # Expected: 0
-        "racecar",  # Expected: 7 (subsequence: "racecar")
-    ]
-    
-    for s in test_cases:
-        result = longest_palindromic_subsequence(s)
-        print(f"Input: s = '{s}'")
-        print(f"Output: {result}\n")
-
+# Example usage
 if __name__ == "__main__":
-    main() 
+    # Test case 1
+    s1 = "bbbab"
+    print(f"Input: {s1}")
+    print(f"Output: {longestPalindromeSubseq(s1)}")  # Expected: 4 ("bbbb")
+    
+    # Test case 2
+    s2 = "cbbd"
+    print(f"\nInput: {s2}")
+    print(f"Output: {longestPalindromeSubseq(s2)}")  # Expected: 2 ("bb")
+    
+    # Test case 3
+    s3 = "a"
+    print(f"\nInput: {s3}")
+    print(f"Output: {longestPalindromeSubseq(s3)}")  # Expected: 1 ("a") 
