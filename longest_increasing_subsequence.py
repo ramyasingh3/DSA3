@@ -3,31 +3,28 @@ import bisect
 class LongestIncreasingSubsequence:
     def lengthOfLIS(self, nums: list[int]) -> int:
         """
-        Find the length of the longest increasing subsequence.
+        Find the length of the longest strictly increasing subsequence.
         
         Args:
             nums: List of integers
             
         Returns:
-            int: Length of the longest increasing subsequence
+            Length of the longest increasing subsequence
         """
         if not nums:
             return 0
             
-        tails = []
+        # dp[i] represents the length of the longest increasing subsequence
+        # that ends with nums[i]
+        dp = [1] * len(nums)
         
-        for num in nums:
-            # Find the first element in tails that is >= num
-            idx = bisect.bisect_left(tails, num)
-            
-            if idx == len(tails):
-                # If num is larger than all elements in tails, append it
-                tails.append(num)
-            else:
-                # Otherwise, replace the first element >= num
-                tails[idx] = num
+        # For each number, check all previous numbers
+        for i in range(1, len(nums)):
+            for j in range(i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[i], dp[j] + 1)
                 
-        return len(tails)
+        return max(dp)
 
 def test_longest_increasing_subsequence():
     # Test cases
